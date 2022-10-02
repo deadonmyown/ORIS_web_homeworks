@@ -1,0 +1,15 @@
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.csproj.AssemblyReference.cache
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.AssemblyInfoInputs.cache
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.AssemblyInfo.cs
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.csproj.CoreCompileInputs.cache
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\bin\Debug\net6.0\GoogleHttpServer.exe
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\bin\Debug\net6.0\GoogleHttpServer.deps.json
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\bin\Debug\net6.0\GoogleHttpServer.runtimeconfig.json
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\bin\Debug\net6.0\GoogleHttpServer.dll
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\bin\Debug\net6.0\GoogleHttpServer.pdb
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.dll
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\refint\GoogleHttpServer.dll
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.pdb
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\GoogleHttpServer.genruntimeconfig.cache
+C:\Users\xPr1e\RiderProjects\GoogleHttpServer\GoogleHttpServer\obj\Debug\net6.0\ref\GoogleHttpServer.dll

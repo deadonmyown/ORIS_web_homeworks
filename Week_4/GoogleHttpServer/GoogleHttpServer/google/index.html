@@ -1,0 +1,453 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="photos/favicon.ico">
+    <title>Google</title>
+    <style>
+        body {
+            background: #fff;
+            font-size: 14px;
+            font-family: arial, sans-serif;
+            color: #202124;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            min-width: 400px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+        .google_logo {
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            margin-top: auto;
+            min-height: 92px;
+            max-height: 290px;
+            height: calc(100% - 560px);
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .search_window {
+            max-height: 160px;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .search {
+            margin-top: 32px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-self: center;
+            align-self: center;
+            height: 44px;
+            background: #fff;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            width: auto;
+            max-width: 584px;
+        }
+
+        .search:hover {
+            background-color: #fff;
+            box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+            border-color: rgba(223, 225, 229, 0);
+        }
+
+        .text_div {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+
+        .text_div form {
+            display: flex;
+            flex: 100%;
+            height: 34px;
+            font-size: 16px;
+        }
+
+        .search_text {
+            background-color: transparent;
+            border: none;
+            width: auto;
+            outline: none;
+            margin: 4px 8px;
+            padding: 0;
+            display: flex;
+            flex: 100%;
+            height: 34px;
+            font-size: 16px;
+        }
+
+        .search_icon {
+            margin-top: 14px;
+            margin-left: 14px;
+            color: #9aa0a6;
+            display: inline-block;
+            height: 16px;
+            line-height: 16px;
+            position: relative;
+            width: 16px;
+        }
+
+        .tia_div {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .tia_icon {
+            height: 11px;
+            width: 19px;
+        }
+
+        .voice_div {
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            width: 24px;
+            line-height: 44px;
+        }
+
+        .voice_icon {
+            height: 24px;
+            width: 24px;
+        }
+
+        .btns {
+            display: flex;
+            margin-top: 16px;
+            justify-content: center;
+        }
+
+        .btns input:hover {
+            box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+
+        .btn_search {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 11px 8px;
+            padding: 0 16px;
+            line-height: 27px;
+            height: 36px;
+            min-width: 54px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn_random {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 11px 8px;
+            padding: 0 16px;
+            line-height: 27px;
+            height: 36px;
+            min-width: 54px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .change_language {
+            flex-grow: 1;
+            text-align: center;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .language_div {
+            margin-top: 16px;
+            color: #4d5156;
+            display: inline-block;
+            line-height: 28px;
+        }
+
+        .language_div a {
+            padding: 0 8px;
+            color: #1a0dab;
+            text-decoration: none;
+        }
+
+        .language_div a:hover {
+            text-decoration: underline;
+        }
+
+        .upper_menu {
+            display: flex;
+            height: 60px;
+            align-items: center;
+            padding: 6px;
+            justify-content: flex-end;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .menu_holder {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-around;
+        }
+
+        .email {
+            display: flex;
+            align-items: center;
+        }
+
+        .email a {
+            color: rgba(0, 0, 0, .87);
+            text-decoration: none;
+        }
+
+        .email a:hover,
+        .email a:active {
+            text-decoration: underline;
+        }
+
+        .email a:focus {
+            outline-offset: 2px;
+        }
+
+        .pics {
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .pics a {
+            color: rgba(0, 0, 0, .87);
+            text-decoration: none;
+        }
+
+        .pics a:hover,
+        .pics a:active {
+            text-decoration: underline;
+        }
+
+        .pics a:focus {
+            outline-offset: 2px;
+        }
+
+        .btn_menu {
+            color: #5f6368;
+            opacity: 0.62;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+        }
+
+        .btn_menu a {
+            display: flex;
+            height: 40px;
+            width: 40px;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+
+        .btn_menu a:hover,
+        .btn_menu a:active {
+            background-color: rgba(60, 64, 67, .08);
+            outline: none;
+            opacity: 1;
+        }
+
+        .btn_account {
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            padding-right: 8px;
+        }
+
+        .btn_account a {
+            display: flex;
+            height: 40px;
+            width: 40px;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+
+        .btn_account a:hover,
+        .btn_account a:active {
+            background-color: rgba(60, 64, 67, .08);
+            outline: none;
+            opacity: 1;
+        }
+
+        .img_account {
+            border-radius: 50%;
+        }
+
+        .bottom {
+            flex-shrink: 0;
+            box-sizing: border-box;
+            display: block;
+            background: #f2f2f2;
+        }
+
+        .bottom_language {
+            padding: 15px 30px;
+            border-bottom: 1px solid #dadce0;
+            font-size: 15px;
+            color: #70757a;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .bottom_info {
+                justify-content: space-evenly;
+            }
+        }
+
+        .bottom_info {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .bottom_info a {
+            color: #70757a;
+            display: block;
+            padding: 15px;
+            white-space: nowrap;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .bottom_info a:hover {
+            text-decoration: underline;
+        }
+
+        .bottom_info_left {
+            display: flex;
+            justify-content: flex-start;
+            min-width: 30%;
+        }
+
+        .bottom_info_center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .bottom_info_right {
+            display: flex;
+            justify-content: flex-end;
+            min-width: 30%;
+        }
+
+        .leaf {
+            height: 14px;
+            margin-right: 6px;
+        }
+
+        .center_text {
+            white-space: nowrap;
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="upper_menu">
+            <div class="menu_holder">
+                <div class="email">
+                    <a href="https://www.youtube.com/watch?v=D-SQqppuGvc&ab_channel=zenigame0123">Почта</a>
+                </div>
+                <div class="pics">
+                    <a href="https://www.youtube.com/watch?v=QzVHnZszJlw&ab_channel=SHUSHGANG%5BLGV%5D">Картинки</a>
+                </div>
+                <div class="btn_menu">
+                    <a href="https://mintmanga.live/tokiiskii_gul__A5327/vol7/65?mtr=1"><img alt="menu"
+                            src="photos/google_menu.png" width="17px" height="17px"></a>
+                </div>
+                <div class="btn_account">
+                    <a href="https://mintmanga.live/tokiiskii_gul__pererojdenie__A5327/vol12/123?mtr=true#page=7"><img
+                            class="img_account" alt="account" src="photos/photo_juk.jpg" width="32px" height="32px"></a>
+                </div>
+            </div>
+        </div>
+        <div class="google_logo">
+            <img alt="Гугол чроме" src="photos/googlelogo_color_272x92dp.png" />
+        </div>
+        <div class="search_window">
+            <div class="search">
+                <img src="photos/google_loopa.png" , alt="search icon" class="search_icon">
+                <div class="text_div">
+                    <form action="https://www.google.com/search?q">
+                        <input type="text" name="q" class="search_text">
+                    </form>
+                </div>
+                <div class="tia_div" aria-label="Экранная клавиатура" role="button">
+                    <img src="photos/tia.png" , alt="tia icon" class="tia_icon" title="Экранная клавиатура">
+                </div>
+                <div class="voice_div" aria-label="Голосовой поиск" role="button">
+                    <img src="photos/google_voice.png" , alt="voice icon" class="voice_icon" title="Голосовой поиск">
+                </div>
+            </div>
+            <div class="btns">
+                <input type="button" name="search" class="btn_search" aria-label="Поиск в Google"
+                    value="Поиск в Google">
+                <input type="button" name="search" class="btn_random" aria-label="Мне повезёт!" value="Мне повезёт!">
+            </div>
+        </div>
+        <div class="change_language">
+            <div class="language_div">
+                Сервисы Google доступны на этих языках:
+                <a href="https://www.youtube.com/watch?v=4qKOXqarKjI&ab_channel=dyyd">English</a>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottom_language">Россия</div>
+            <div class="bottom_info">
+                <div class="bottom_info_left">
+                    <a href="https://animego.org/anime/kogda-plachut-cikady-1612">Всё о Google</a>
+                    <a href="https://www.youtube.com/watch?v=xgfa5UlZAL8&ab_channel=OdiumNostrum">Реклама</a>
+                    <a href="https://www.youtube.com/watch?v=wj1ASnd27SQ&ab_channel=CURSEDEVIL">Для бизнеса</a>
+                    <a href="https://www.hltv.org/">Как работает Google Поиск</a>
+                </div>
+                <div class="bottom_info_center">
+                    <a>
+                        <img class="leaf" src="photos/S%20nazvaniem.png">
+                        <span class="center_text">Нулевой баланс выбросов углекислого газа с 2007 года</span>
+                    </a>
+                </div>
+                <div class="bottom_info_right">
+                    <a href="https://vk.com/ubiica_killer_228">Конфиденциальность</a>
+                    <a href="https://mindtnv.gitlab.io/deadinsidenickgenerator/">Условия</a>
+                    <a href="https://docs.unity3d.com/ScriptReference/index.html">Настройки</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
