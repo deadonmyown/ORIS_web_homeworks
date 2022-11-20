@@ -1,0 +1,12 @@
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\bin\Debug\net6.0\MyORM.deps.json
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\bin\Debug\net6.0\MyORM.dll
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\bin\Debug\net6.0\MyORM.pdb
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.csproj.AssemblyReference.cache
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.AssemblyInfoInputs.cache
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.AssemblyInfo.cs
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.csproj.CoreCompileInputs.cache
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.dll
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\refint\MyORM.dll
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\MyORM.pdb
+C:\Users\xPr1e\source\repos\YaSkamerBroServer\MyORM\obj\Debug\net6.0\ref\MyORM.dll
