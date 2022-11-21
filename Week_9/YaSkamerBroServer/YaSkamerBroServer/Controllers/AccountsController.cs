@@ -1,11 +1,12 @@
 ﻿using MyORM;
 using MyORM.Model;
+using System.Net;
 
 namespace YaSkamerBroServer.Controllers;
 
 
 [HttpController("accounts")]
-public class AccountsController
+public class AccountsController: Controller
 {
     [HttpGET]
     public List<Account> GetAccounts()
@@ -24,20 +25,35 @@ public class AccountsController
     }
 
     [HttpPOST]
-    public string SaveAccount(string body, string name, string password)
+    public string Login(string body, string login, string password)
     {
-        if (body == name || body == password)
+        if (body == login || body == password)
         {
             string[] parsedBody = body.ParseAsQueryToArray();
             if (parsedBody.Length == 2)
-                (name, password) = (parsedBody[0], parsedBody[1]);
+                (login, password) = (parsedBody[0], parsedBody[1]);
         }
 
-        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(password))
+        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             return "Wrong body type";
 
-        Console.WriteLine(body + "  " + name + "  " + password);
+        Console.WriteLine(body + "  " + login + "  " + password);
 
+        Console.WriteLine($"Check this method: login: {login} password: {password}");
+        var dao = new AccountDao(
+            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
+        var account = dao.Select().FirstOrDefault(acc => acc.Name == login && acc.Password == password);
+        if (account != null)
+        {
+            HttpContext.Response.AppendHeader("Set-Cookie", $"SessionId=IsAuthorize: true, Id={account.Id}");
+            return $"welcome {account.Name}";
+        }
+        return "account not found";
+    }
+
+    [HttpPOST("saveAccount")]
+    public string SaveAccount(string name, string password)
+    {
         var dao =
             new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
         dao.Insert(name, " ", " ", password);
@@ -65,17 +81,7 @@ public class AccountsController
         return $"delete account by id = {id}";
     }
 
-
-    //http://localhost:1337/accounts/login?login=oyda&password=zae**l -> true
-    [HttpPOST("login")]
-    public bool Login(string login, string password)
-    {
-        Console.WriteLine($"Check this method: login: {login} password: {password}");
-        var dao = new AccountDao(
-            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
-        return dao.Select().Any(acc => acc.Name == login && acc.Password == password);
-    }
-
+    #region Test methods
     //http://localhost:1337/accounts/login?email=aboba&password=123 -> false
     //http://localhost:1337/accounts/login?email=aboba&password=prvi -> true
     [HttpGET("login")]
@@ -105,4 +111,5 @@ public class AccountsController
         dao.Insert(new Account() { Name = name, Email = email, Phone = phone, Password = password });
         return $"{name}, {email}, {phone}, {password}";
     }
+    #endregion
 }

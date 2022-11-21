@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Reflection;
 using System.Threading.Tasks;
+using YaSkamerBroServer.Controllers;
 
 namespace YaSkamerBroServer
 {
@@ -25,7 +26,7 @@ namespace YaSkamerBroServer
 
         private volatile ServerSettings _serverSettings;
 
-        private IDictionary<string, Type> controllers;
+        private IDictionary<string, (Type, object)> controllers;
 
         private Task listeningTask;
 
@@ -33,7 +34,7 @@ namespace YaSkamerBroServer
         {
             _httpListener = new HttpListener();
             RouteTree = new RouteTree();
-            controllers = new Dictionary<string, Type>();
+            controllers = new Dictionary<string, (Type, object)>();
             RegisterControllers();
         }
 
@@ -167,13 +168,25 @@ namespace YaSkamerBroServer
             string controllerName = _httpContext.Request.Url.Segments[1].Replace("/", "");
 
             if (!controllers.ContainsKey(controllerName)) return false;
+            var (controller, instance) = controllers[controllerName];
+            if (controller.BaseType == typeof(Controller))
+            {
+                foreach (var property in controller.BaseType.GetProperties())
+                {
+                    if (property.PropertyType == typeof(HttpListenerContext))
+                    {
+                        property.SetValue(instance, _httpContext);
+                    }
+                }
+            }
+
 
             string bodyRet = null;
             IDictionary<string, string> bodyParams = null;
             if (request.HasEntityBody)
             {
                 Stream body = request.InputStream;
-                System.Text.Encoding encoding = request.ContentEncoding;
+                Encoding encoding = request.ContentEncoding;
                 StreamReader reader = new StreamReader(body, encoding);
                 bodyRet = reader.ReadToEnd();
                 bodyParams = bodyRet.ParseAsQuery(true);
@@ -203,10 +216,10 @@ namespace YaSkamerBroServer
 
             var controllers = assembly.GetTypes()
                 .Where(t => Attribute.IsDefined(t, typeof(HttpController)))
-                .Select(type => (type, type.GetCustomAttribute<HttpController>()))
+                .Select(type => (type, type.GetCustomAttribute<HttpController>(), type.BaseType))
                 .Select(tuple => (tuple.type, string.IsNullOrEmpty(tuple.Item2.ControllerName)
                     ? tuple.type.Name.ToLower().Replace("controller", "")
-                    : tuple.Item2.ControllerName));
+                    : tuple.Item2.ControllerName, tuple.BaseType));
 
             StringBuilder route = new StringBuilder();
             foreach (var controller in controllers)
@@ -214,7 +227,7 @@ namespace YaSkamerBroServer
                 var instance = controller.type.GetConstructor(new Type[] { }).Invoke(new object[] { });
                 RouteTree.RegisterCaller(controller.type, instance);
 
-                this.controllers[controller.type.Name.ToLower().Replace("controller", "")] = controller.type;
+                this.controllers[controller.type.Name.ToLower().Replace("controller", "")] = (controller.type, instance);
 
                 foreach (var method in controller.type.GetMethods())
                 {
