@@ -11,13 +11,13 @@ public class AccountsController: Controller
     [HttpGET]
     public List<Account> GetAccounts()
     {
-        var dao =
-            new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
         if(!HttpContext.Request.Cookies.CheckSessionId())
-        { 
-            HttpContext.Response.StatusCode = 401;
+        {
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             return null;
         }
+        var dao =
+            new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
         return dao.Select();
     }
     
@@ -28,6 +28,21 @@ public class AccountsController: Controller
             new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
         return dao.Select(id);
     }
+
+    [HttpGET("info")]
+    public Account GetAccountInfo()
+    {
+        int? id = HttpContext.Request.Cookies.CheckAuthorizedAccount();
+        if (!id.HasValue)
+        {
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            return null;
+        }
+        var dao =
+            new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
+        return dao.Select(id.Value);
+    }
+
 
     [HttpPOST]
     public string Login(string body, string login, string password)
@@ -87,6 +102,20 @@ public class AccountsController: Controller
     }
 
     #region Test methods
+    //aaa ya ne to sdelal
+    [HttpGET("info/{id:int}")]
+    public Account GetAccountInfoById(int id)
+    {
+        var dao =
+            new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
+        if (!HttpContext.Request.Cookies.CheckAuthorizedAccountById(id))
+        {
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            return null;
+        }
+        return dao.Select(id);
+    }
+
     //http://localhost:1337/accounts/login?email=aboba&password=123 -> false
     //http://localhost:1337/accounts/login?email=aboba&password=prvi -> true
     [HttpGET("login")]

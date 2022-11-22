@@ -12,7 +12,7 @@ namespace YaSkamerBroServer
         public static bool CheckSessionId(this CookieCollection cookieCollection)
         {
             var cookie = cookieCollection["SessionId"];
-            if(cookie == null)
+            if(cookie != null)
             {
                 var args = cookie.Value.Split(new char[] { ' ', ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (args.Length == 2 && bool.TryParse(args[1], out bool isAuth) && isAuth == true)
@@ -20,6 +20,16 @@ namespace YaSkamerBroServer
             }
 
             return false;
+        }
+
+        public static int? CheckAuthorizedAccount(this CookieCollection cookieCollection)
+        {
+            if(CheckSessionId(cookieCollection))
+            {
+                var account = cookieCollection["Id"];
+                return account != null ? int.TryParse(account.Value, out int authId) ? authId : null : null;
+            }
+            return null;
         }
 
         public static bool CheckAuthorizedAccountById(this CookieCollection cookieCollection, int accId)
