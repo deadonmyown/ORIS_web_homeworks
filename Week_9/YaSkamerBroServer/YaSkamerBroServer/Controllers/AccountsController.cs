@@ -65,7 +65,11 @@ public class AccountsController: Controller
         var account = dao.Select().FirstOrDefault(acc => acc.Name == login && acc.Password == password);
         if (account != null)
         {
-            HttpContext.Response.AppendHeader("Set-Cookie", $"SessionId=IsAuthorize: true, Id={account.Id}");
+            var guid = Guid.NewGuid();
+            var session = new Session(guid, account.Id, account.Email, DateTime.Now);
+            SessionManager.CreateOrGetSession(account.Id, () => session);
+            //HttpContext.Response.AppendHeader("Set-Cookie", $"SessionId=IsAuthorize: true, Id={account.Id}");
+            HttpContext.Response.AppendHeader("Set-Cookie", $"SessionId={session.Id}");
             return $"welcome {account.Name}";
         }
         return "account not found";
