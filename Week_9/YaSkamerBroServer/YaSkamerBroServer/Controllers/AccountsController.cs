@@ -13,6 +13,11 @@ public class AccountsController: Controller
     {
         var dao =
             new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
+        if(!HttpContext.Request.Cookies.CheckSessionId())
+        { 
+            HttpContext.Response.StatusCode = 401;
+            return null;
+        }
         return dao.Select();
     }
     
