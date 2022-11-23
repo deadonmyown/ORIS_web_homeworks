@@ -67,7 +67,8 @@ public class AccountsController: Controller
         {
             var guid = Guid.NewGuid();
             var session = new Session(guid, account.Id, account.Email, DateTime.Now);
-            SessionManager.CreateOrGetSession(account.Id, () => session);
+            SessionManager.CreateOrGetSession(guid, () => session);
+            SessionManager.CheckSession(guid);
             //HttpContext.Response.AppendHeader("Set-Cookie", $"SessionId=IsAuthorize: true, Id={account.Id}");
             HttpContext.Response.AppendHeader("Set-Cookie", $"SessionId={session.Id}");
             return $"welcome {account.Name}";
@@ -106,20 +107,6 @@ public class AccountsController: Controller
     }
 
     #region Test methods
-    //aaa ya ne to sdelal
-    [HttpGET("info/{id:int}")]
-    public Account GetAccountInfoById(int id)
-    {
-        var dao =
-            new AccountDao(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ServerDB;Integrated Security=True;");
-        if (!HttpContext.Request.Cookies.CheckAuthorizedAccountById(id))
-        {
-            HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            return null;
-        }
-        return dao.Select(id);
-    }
-
     //http://localhost:1337/accounts/login?email=aboba&password=123 -> false
     //http://localhost:1337/accounts/login?email=aboba&password=prvi -> true
     [HttpGET("login")]
